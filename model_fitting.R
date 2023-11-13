@@ -1,4 +1,5 @@
 ## Fitting light response curves ##
+# Harvard Forest 2021
 # See Marino et al. 2010 :https://doi.org/10.1111/j.1365-2435.2009.01630.x
 # and Schmiege et al. 2022:  https://doi.org/10.1111/pce.14448
 
