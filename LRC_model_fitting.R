@@ -61,7 +61,7 @@ LRC_combo <- LRC_dataset %>% distinct(Species, Tree_Rep)
 ###########
 # Need to manually iterate to ensure convergence
 ###########
-i = 19
+i = 33
 Spp <- LRC_combo$Species[i]
 Rep <- LRC_combo$Tree_Rep[i]
 lrc_ID <- paste0(Spp, "_", Rep)
@@ -134,11 +134,12 @@ merged_summary <- bind_cols(sum_Michael, sum_Mitsch, sum_NonRect) %>%
   mutate(LRC_ID = lrc_ID) %>%
   select(LRC_ID, everything())
 
+
 #results <- merged_summary # instantiate first time
 results <- bind_rows(results, merged_summary)
 
 
-
+# save model outputs for access later if necessary
 saveRDS(fit_Mitsch,
         paste0("saved_nls_models/", lrc_ID, "_Mitscherlich.rds"))
 saveRDS(fit_Michael,
@@ -146,8 +147,16 @@ saveRDS(fit_Michael,
 saveRDS(fit_NonRect,
         paste0("saved_nls_models/", lrc_ID, "_NonRectHyperbola.rds"))
 
+rm(fit_Michael, fit_Mitsch, fit_NonRect, LRC, merged_summary, sum_Michael,
+   sum_Mitsch, sum_NonRect); gc()
+
+#write.csv(results, "saved_nls_models/model_parameter_summary2.csv")
+
+#######################################################################
+
 
 ### Everything below is graphing for visualization
+
 
 #create a sequence of Q values for plotting
 Q_seq <- seq(min(LRC$Q), max(LRC$Q), length.out = 100)
